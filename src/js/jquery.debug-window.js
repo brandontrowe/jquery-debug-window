@@ -1,13 +1,5 @@
 /*global jQuery*/
 /*jslint nomen: true, plusplus: true, browser: true, devel: true */
-/*
-
-Author: brandon.rowe@gmail.com
-Modified: Updated: Nov 2016
-
-Tested with:
-jQuery 3.1.1
-*/
 
 (function ($) {
     "use strict";
