@@ -4,7 +4,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('convert', function() {
-    gulp.src('src/css/scss/app.scss')
+    gulp.src('src/css/scss/jquery.debug-window.scss')
         .pipe(sourcemaps.init())
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(autoprefixer({
@@ -19,7 +19,7 @@ gulp.task('convert', function() {
 });
 
 gulp.task('build', function() {
-    gulp.src('src/css/scss/app.scss')
+    gulp.src('src/css/scss/jquery.debug-window.scss')
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(autoprefixer({
             browsers: ['last 2 versions', 'ie 9'],
@@ -37,5 +37,5 @@ gulp.task('default', ['convert'], function() {
     gulp.watch('src/css/scss/**/*.scss', ['convert']);
 
     // Watch JS files
-    gulp.watch('src/js/jquery.debug-window.js', ['convert']);
+    gulp.watch('src/js/**/*.js', ['convert']);
 });

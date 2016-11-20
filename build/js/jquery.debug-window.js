@@ -6,33 +6,32 @@ function DebugObject(element, options) {
 
     var self = $(element);
     var settings = $.extend({
-
+        debugHtml:
+            '<div class="mouse-position">' +
+                '<strong>Mouse: </strong>' +
+                'x<span class="x">' + mouseX + '</span>, ' +
+                'y<span class="y">' + mouseY + '</span>' +
+            '</div>' +
+            '<hr>' +
+            '<div class="window-dim">' +
+                '<strong>Window </strong>' +
+                '<ul>' +
+                    '<li class="window-width">' +
+                        '<strong>Width: </strong>' +
+                        '<span class="width">' + windowWidth + '</span>px' +
+                    '</li>' +
+                    '<li class="window-height">' +
+                        '<strong>Height: </strong>' +
+                        '<span class="height">' + windowHeight + '</span>px' +
+                    '</li>' +
+                '</ul>' +
+            '</div>';
     }, options);
     var mouseX = 0;
     var mouseY = 0;
     var windowWidth = $(window).width();
     var windowHeight = $(window).height();
     var debugWindow;
-    var debugHtml =
-        '<div class="mouse-position">' +
-            '<strong>Mouse: </strong>' +
-            'x<span class="x">' + mouseX + '</span>, ' +
-            'y<span class="y">' + mouseY + '</span>' +
-        '</div>' +
-        '<hr>' +
-        '<div class="window-dim">' +
-            '<strong>Window </strong>' +
-            '<ul>' +
-                '<li class="window-width">' +
-                    '<strong>Width: </strong>' +
-                    '<span class="width">' + windowWidth + '</span>px' +
-                '</li>' +
-                '<li class="window-height">' +
-                    '<strong>Height: </strong>' +
-                    '<span class="height">' + windowHeight + '</span>px' +
-                '</li>' +
-            '</ul>' +
-        '</div>';
 
     function init() {
         _setStage(function () {
@@ -49,7 +48,7 @@ function DebugObject(element, options) {
             .html('Loading debug...');
 
         self.prepend(debugWindow);
-        debugWindow.html(debugHtml);
+        debugWindow.html(settings.debugHtml);
 
         cb();
     };
