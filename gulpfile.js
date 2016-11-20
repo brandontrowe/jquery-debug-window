@@ -14,6 +14,8 @@ gulp.task('sass', function() {
         }))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('build/css'));
+    gulp.src('src/js/jquery.debug-window.js')
+        .pipe(gulp.dest('build/js'));
 });
 
 gulp.task('build', function() {
