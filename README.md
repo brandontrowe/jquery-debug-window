@@ -1,13 +1,30 @@
 # Debug Window
 
-## Settings
-None... yet!
+<!---
+## Options
+TBD
+--->
+
+## Using the Debug Window
+
+1. Import JavaScript before the closing </body> tag`<script src="[your path to source]/jquery.debug-window.js"></script>`
+2. Import CSS in the <head> `<link rel="stylesheet" href="[your path to source]app.css" />`
+3. Call plugin `$('body').debugWindow()`
 
 ## Development
+
 ```
 git clone https://github.com/brandontrowe/jquery-debug-window.git
 cd jquery-debug-window
 npm install
 npm start
-Visit: http://localhost:3000/build/demo.html
 ```
+Open: http://localhost:3000/build/demo.html
+
+## Contributing
+
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request

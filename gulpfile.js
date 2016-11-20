@@ -3,7 +3,7 @@ const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
 
-gulp.task('sass', function() {
+gulp.task('convert', function() {
     gulp.src('src/css/scss/app.scss')
         .pipe(sourcemaps.init())
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
@@ -31,8 +31,11 @@ gulp.task('build', function() {
         .pipe(gulp.dest('build/js'));
 });
 
-gulp.task('default', ['sass'], function() {
+gulp.task('default', ['convert'], function() {
 
     // Watch and convert SASS/SCSS files
-    gulp.watch('src/css/scss/**/*.scss', ['sass']);
+    gulp.watch('src/css/scss/**/*.scss', ['convert']);
+
+    // Watch JS files
+    gulp.watch('src/js/jquery.debug-window.js', ['convert']);
 });

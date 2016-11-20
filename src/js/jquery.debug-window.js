@@ -1,95 +1,94 @@
 /*global jQuery*/
 /*jslint nomen: true, plusplus: true, browser: true, devel: true */
+"use strict";
+
+function DebugObject(element, options) {
+
+    var self = $(element);
+    var settings = $.extend({
+
+    }, options);
+    var mouseX = 0;
+    var mouseY = 0;
+    var windowWidth = $(window).width();
+    var windowHeight = $(window).height();
+    var debugWindow;
+    var debugHtml =
+        '<div class="mouse-position">' +
+            '<strong>Mouse: </strong>' +
+            'x<span class="x">' + mouseX + '</span>, ' +
+            'y<span class="y">' + mouseY + '</span>' +
+        '</div>' +
+        '<hr>' +
+        '<div class="window-dim">' +
+            '<strong>Window </strong>' +
+            '<ul>' +
+                '<li class="window-width">' +
+                    '<strong>Width: </strong>' +
+                    '<span class="width">' + windowWidth + '</span>px' +
+                '</li>' +
+                '<li class="window-height">' +
+                    '<strong>Height: </strong>' +
+                    '<span class="height">' + windowHeight + '</span>px' +
+                '</li>' +
+            '</ul>' +
+        '</div>';
+
+    function init() {
+        _setStage(function () {
+            _setEvents();
+            updateDebugView();
+            window.setInterval(updateDebugView, 30);
+        });
+
+    }
+
+    function _setStage(cb) {
+        debugWindow = $('<div/>')
+            .attr('id', 'debug-window')
+            .html('Loading debug...');
+
+        self.prepend(debugWindow);
+        debugWindow.html(debugHtml);
+
+        cb();
+    };
+
+    function _setEvents() {
+        $(window)
+            .on('mousemove', function(e){
+                mouseX = e.pageX
+                mouseY = e.pageY
+            })
+            .on('resize', function(e){
+                windowWidth = $(window).width();
+                windowHeight = $(window).height();
+            });
+
+    };
+
+    function updateDebugView() {
+        debugWindow.find('.mouse-position .x').html(mouseX);
+        debugWindow.find('.mouse-position .y').html(mouseY);
+
+        debugWindow.find('.window-width .width').html(windowWidth);
+        debugWindow.find('.window-height .height').html(windowHeight);
+    }
+
+    init();
+}
+
 
 (function ($) {
-    "use strict";
-    var settings = {},
-        // private data
-        $that = {},
-        appData = {
-            mouseX:         0,
-            mouseY:         0,
-            windowWidth:    $(window).width(),
-            windowHeight:   $(window).height()
-        },
 
-        // Private Methods
-        _setSettings = function (options) {$.extend(settings, options); },
+    $.fn.debugWindow = function (options) {
 
-        _setStage = function(elem) {
-            var debugElem = $('<div/>')
-                .attr('id', 'debug-window')
-                .html('Loading debug...');
-            var debugHtml = '<div class="mouse-position">' +
-                                '<strong>Mouse: </strong>' +
-                                'x<span class="x">' + appData.mouseX + '</span>, ' +
-                                'y<span class="y">' + appData.mouseY + '</span>' +
-                            '</div>' +
-                            '<hr>' +
-                            '<div class="window-dim">' +
-                                '<strong>Window </strong>' +
-                                '<ul>' +
-                                '<li class="window-width">' +
-                                    '<strong>Width: </strong>' +
-                                    '<span class="width">' + appData.windowWidth + '</span>px' +
-                                '</li>' +
-                                '<li class="window-height">' +
-                                    '<strong>Height: </strong>' +
-                                    '<span class="height">' + appData.windowHeight + '</span>px' +
-                                '</li>' +
-                                '</ul>' +
-                            '</div>';
+        this.each(function () {
+            new DebugObject(this, options);
+        });
 
-            $(elem).prepend(debugElem);
-            debugElem.html(debugHtml);
+        return this;
 
-            function updateDebugView() {
-                debugElem.find('.mouse-position .x').html(appData.mouseX);
-                debugElem.find('.mouse-position .y').html(appData.mouseY);
-
-                debugElem.find('.window-width .width').html(appData.windowWidth);
-                debugElem.find('.window-height .height').html(appData.windowHeight);
-            }
-            window.setInterval(updateDebugView, 30);
-            updateDebugView();
-        },
-
-        _setEvents = function() {
-            $(window)
-                .on('mousemove', function(e){
-                    appData.mouseX = e.pageX
-                    appData.mouseY = e.pageY
-                })
-                .on('resize', function(e){
-                    appData.windowWidth = $(window).width();
-                    appData.windowHeight = $(window).height();
-                });
-
-        },
-
-        // Public Methods
-        methods = {
-
-            init : function (options) {
-                // If options exist, lets merge them with our default settings
-                if (options) {_setSettings(options); }
-
-                return this.each(function () {
-                    _setStage(this);
-                    _setEvents();
-                });
-            }
-
-        };
-
-    $.fn.debugWindow = function (method) {
-        if (methods[method]) {
-            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-        }
-        if (typeof method === 'object' || !method) {
-            return methods.init.apply(this, arguments);
-        }
-        _out('Method ' +  method + ' does not exist');
     };
 
 }(jQuery));
