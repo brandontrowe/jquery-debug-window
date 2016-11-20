@@ -1,0 +1,23 @@
+#debug-window {
+    position:fixed;
+    top:10px;
+    left:10px;
+
+    background-color:#fff;
+    border:1px solid #888;
+    min-width:100px;
+    min-height:50px;
+    padding:10px;
+
+    font-family:sans-serif;
+    font-size:11px;
+    line-height:15px;
+    text-align:left;
+
+    box-shadow: 0px 0px 10px 0px rgba(#000, 0.5);
+
+    ul {
+        padding-left:20px;
+        list-style:disc;
+    }
+}
