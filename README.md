@@ -1,16 +1,28 @@
 # Debug Window
+Listens for `console.log`, `console.warn` and `console.error` calls and outputs them to the webpage.
 
-<!---
 ## Options
-TBD
---->
+
+###showMousePosition
+default: `false`
+Outputs the mouse position to the debug window.
+
+###showWindowDimensions
+default: `false`
+Outputs the current window dimensions to the debug window.
 
 ## Using the Debug Window
 
 1. Import jQuery
 2. Import JavaScript before the closing </body> tag`<script src="[your path to source]/jquery.debug-window.js"></script>`
 3. Import CSS in the <head> `<link rel="stylesheet" href="[your path to source]jquery.debug-window.css" />`
-4. Call plugin `$('body').debugWindow()`
+4. Call plugin `$('body').debugWindow();`
+With options:
+```
+$('body').debugWindow({
+    showMousePosition: true,
+    showWindowDimensions: true
+});
 
 ## Development
 

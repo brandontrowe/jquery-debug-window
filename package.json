@@ -4,7 +4,8 @@
   "main": "gulpfile.js",
   "license": "MIT",
   "scripts": {
-    "start": "concurrently \"gulp\" \"node index.js\""
+    "start": "concurrently -p \"[{name}]\" -n \"GULP,SERVER\" -c \"bgBlue.bold,bgMagenta.bold\" \"gulp\" \"node index.js\"",
+    "build": "gulp build"
   },
   "devDependencies": {
     "connect": "^3.5.0",
