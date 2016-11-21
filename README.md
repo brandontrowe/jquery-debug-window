@@ -1,5 +1,8 @@
 # Debug Window
+Creates a debug window that displays mouse position x/y and window width/height.
 Listens for `console.log`, `console.warn` and `console.error` calls and outputs them to a debug window on the page.
+
+Helps with debuging on devices that don't have console.
 
 ## Options
 

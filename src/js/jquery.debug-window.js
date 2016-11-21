@@ -2,6 +2,65 @@
 /*jslint nomen: true, plusplus: true, browser: true, devel: true */
 "use strict";
 
+var _console = console;
+var i;
+var console = {
+    log: function() {
+        var args = Array.prototype.slice.call(arguments);
+        for (i = 0; i < args.length; i++) {
+            messageConsole(args[i], 'log');
+            _console.log(args[i]);
+        }
+    },
+    warn: function() {
+        var args = Array.prototype.slice.call(arguments);
+        for (i = 0; i < args.length; i++) {
+            messageConsole(args[i], 'warn');
+            _console.warn(args[i]);
+        }
+    },
+    error: function() {
+        var args = Array.prototype.slice.call(arguments);
+        for (i = 0; i < args.length; i++) {
+            messageConsole(args[i], 'error');
+            _console.error(args[i]);
+        }
+    }
+}
+
+function messageConsole(message, type) {
+    var ev;
+    var msg = '';
+
+    if(!type) type = 'log';
+    if (message === null) {
+        msg = 'null';
+    } else if (typeof message === 'string') {
+        msg = message;
+    } else if (typeof message === 'object') {
+        msg = simpleStringify(message);
+    }
+    ev = new CustomEvent('console:' + type, { 'detail': msg });
+    window.dispatchEvent(ev);
+}
+
+function simpleStringify (object){
+    var simpleObject = {};
+    for (var prop in object ){
+        if (!object.hasOwnProperty(prop)){
+            continue;
+        }
+        if (typeof(object[prop]) == 'object'){
+            continue;
+        }
+        if (typeof(object[prop]) == 'function'){
+            continue;
+        }
+        simpleObject[prop] = object[prop];
+    }
+    return JSON.stringify(simpleObject); // returns cleaned up JSON
+};
+
 function DebugObject(element, options) {
 
     var self = $(element);
@@ -121,60 +180,3 @@ function DebugObject(element, options) {
     };
 
 }(jQuery));
-
-var _console = console;
-var i;
-var console = {
-    log: function() {
-        var args = Array.prototype.slice.call(arguments);
-        for (i = 0; i < args.length; i++) {
-            messageConsole(args[i], 'log');
-            _console.log(args[i]);
-        }
-    },
-    warn: function() {
-        var args = Array.prototype.slice.call(arguments);
-        for (i = 0; i < args.length; i++) {
-            messageConsole(args[i], 'warn');
-        }
-    },
-    error: function() {
-        var args = Array.prototype.slice.call(arguments);
-        for (i = 0; i < args.length; i++) {
-            messageConsole(args[i], 'error');
-        }
-    }
-}
-
-function messageConsole(message, type) {
-    var ev;
-    var msg = '';
-
-    if(!type) type = 'log';
-    if (message === null) {
-        msg = 'null';
-    } else if (typeof message === 'string') {
-        msg = message;
-    } else if (typeof message === 'object') {
-        msg = simpleStringify(message);
-    }
-    ev = new CustomEvent('console:' + type, { 'detail': msg });
-    window.dispatchEvent(ev);
-}
-
-function simpleStringify (object){
-    var simpleObject = {};
-    for (var prop in object ){
-        if (!object.hasOwnProperty(prop)){
-            continue;
-        }
-        if (typeof(object[prop]) == 'object'){
-            continue;
-        }
-        if (typeof(object[prop]) == 'function'){
-            continue;
-        }
-        simpleObject[prop] = object[prop];
-    }
-    return JSON.stringify(simpleObject); // returns cleaned up JSON
-};
