@@ -1,5 +1,5 @@
 # Debug Window
-Listens for `console.log`, `console.warn` and `console.error` calls and outputs them to the webpage.
+Listens for `console.log`, `console.warn` and `console.error` calls and outputs them to a debug window on the page.
 
 ## Options
 
@@ -23,6 +23,7 @@ $('body').debugWindow({
     showMousePosition: true,
     showWindowDimensions: true
 });
+```
 
 ## Development
 
