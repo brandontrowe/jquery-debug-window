@@ -49,7 +49,7 @@ function stringifyLog(message) {
     return stringMessage;
 }
 
-function simpleObjectStringify (object){
+function simpleObjectStringify(object){
     var simpleObject = {};
     for (var prop in object ){
         if (!object.hasOwnProperty(prop)){
@@ -175,13 +175,12 @@ function DebugObject(element, options) {
 (function ($) {
 
     $.fn.debugWindow = function (options) {
-
+        var index = 0;
         this.each(function () {
+            $(this).attr('data-debug-1', '');
             new DebugObject(this, options);
         });
-
         return this;
-
     };
 
 }(jQuery));
